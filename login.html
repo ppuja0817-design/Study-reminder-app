@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Study Desk</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="auth-shell">
+
+  <!-- Left visual panel -->
+  <div class="auth-visual">
+    <div class="lamp"></div>
+    <div class="auth-visual-top">
+      <div class="brand">
+        <span class="brand-mark">S</span>
+        Study Desk
+      </div>
+    </div>
+
+    <div class="auth-visual-mid">
+      <h1 class="headline">Ek diva, <em>ek time-table</em>,<br>ani shant abhyas.</h1>
+      <p>Study reminders, exam countdowns, break alerts ani subject-wise weekly plan — sagle ek jagi.</p>
+    </div>
+
+    <div class="desk-schedule">
+      <div class="row active"><span class="dot"></span> 07:00 — Physics revision</div>
+      <div class="row"><span class="dot"></span> 08:30 — Break: 15 min</div>
+      <div class="row"><span class="dot"></span> 09:00 — Maths problem set</div>
+      <div class="row"><span class="dot"></span> 21 Sep — Chemistry exam</div>
+    </div>
+  </div>
+
+  <!-- Right form panel -->
+  <div class="auth-panel">
+    <div class="auth-card">
+      <div class="mobile-brand">
+        <span class="brand-mark">S</span> Study Desk
+      </div>
+
+      <h1>Parat swagat aahe</h1>
+      <p class="sub">Tumcha study dashboard open karnyasathi login kara.</p>
+
+      <div class="alert" id="formAlert"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field" id="emailField">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="tumhi@example.com" autocomplete="username">
+          <div class="field-error">Valid email टाका.</div>
+        </div>
+
+        <div class="field" id="passwordField">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+          <div class="field-error">Password chuk aahe ka khali aahe.</div>
+        </div>
+
+        <div class="checkbox-row" style="margin-bottom:22px;">
+          <input type="checkbox" id="remember" checked>
+          <label for="remember" style="font-size:13px; color:var(--text-muted); margin:0;">Mala lakshat theva (ha device)</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login kara</button>
+      </form>
+
+      <p class="auth-switch">Account nahi? <a href="register.html">Register kara</a></p>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+
+  if (getSession()) {
+    window.location.href = "index.html";
+  }
+
+  const form = document.getElementById('loginForm');
+  const alertBox = document.getElementById('formAlert');
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    alertBox.classList.remove('show');
+    document.getElementById('emailField').classList.remove('has-error');
+    document.getElementById('passwordField').classList.remove('has-error');
+
+    const email = document.getElementById('email').value.trim().toLowerCase();
+    const password = document.getElementById('password').value;
+
+    let hasError = false;
+    if (!email || !validateEmail(email)) {
+      document.getElementById('emailField').classList.add('has-error');
+      hasError = true;
+    }
+    if (!password) {
+      document.getElementById('passwordField').classList.add('has-error');
+      hasError = true;
+    }
+    if (hasError) return;
+
+    try {
+      await loginUser(email, password);
+      window.location.href = "index.html";
+    } catch (err) {
+      alertBox.textContent = "Email किंवा password चुकीचा आहे. पुन्हा प्रयत्न करा.";
+      alertBox.classList.add('show');
+    }
+  });
+</script>
+</body>
+</html>

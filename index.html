@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Study Desk</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+  <div class="nav-scrim" id="navScrim"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><span class="brand-mark">S</span> Study Desk</div>
+
+    <nav>
+      <button class="nav-link active" data-view="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        Overview
+      </button>
+      <button class="nav-link" data-view="study">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Study Reminders
+      </button>
+      <button class="nav-link" data-view="exam">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Exam Reminders
+      </button>
+      <button class="nav-link" data-view="break">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Break Reminders
+      </button>
+      <button class="nav-link" data-view="timetable">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+        Time Table
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="avatar" id="userAvatar">?</div>
+      <div class="who">
+        <div class="name" id="userName">—</div>
+        <div class="email" id="userEmail">—</div>
+      </div>
+      <button class="btn-icon" id="logoutBtn" title="Logout">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <button class="btn btn-ghost btn-sm hamburger" id="hamburgerBtn">☰ Menu</button>
+        <h1 id="pageTitle">Namaste, <span id="greetName">Student</span> 👋</h1>
+        <div class="date-line" id="todayLine">—</div>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section class="view active" id="view-overview">
+      <div class="stat-row">
+        <div class="stat-card accent-amber">
+          <div class="stat-label">Study reminders</div>
+          <div class="stat-value" id="statStudy">0</div>
+        </div>
+        <div class="stat-card accent-danger">
+          <div class="stat-label">Upcoming exams</div>
+          <div class="stat-value" id="statExam">0</div>
+        </div>
+        <div class="stat-card accent-mint">
+          <div class="stat-label">Break reminders</div>
+          <div class="stat-value" id="statBreak">0</div>
+        </div>
+        <div class="stat-card accent-blue">
+          <div class="stat-label">Weekly classes</div>
+          <div class="stat-value" id="statSlots">0</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Aaj che reminders</h2>
+          <span class="count" id="todayCount">0</span>
+        </div>
+        <div class="list" id="todayList"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Jawal ali exam</h2>
+        </div>
+        <div class="list" id="overviewExamList"></div>
+      </div>
+    </section>
+
+    <!-- STUDY REMINDERS -->
+    <section class="view" id="view-study">
+      <div class="section">
+        <div class="card">
+          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">Naveen study reminder</h2>
+          <form id="studyForm" class="form-grid">
+            <div class="field field-wide">
+              <label>Subject / Topic</label>
+              <input type="text" id="studySubject" placeholder="e.g. Physics — Motion chapter" required>
+            </div>
+            <div class="field">
+              <label>Date</label>
+              <input type="date" id="studyDate" required>
+            </div>
+            <div class="field">
+              <label>Time</label>
+              <input type="time" id="studyTime" required>
+            </div>
+            <div class="field">
+              <label>Repeat</label>
+              <select id="studyRepeat">
+                <option value="once">Ekdach</option>
+                <option value="daily">Roj</option>
+                <option value="weekly">Aathvadyatun ekda</option>
+              </select>
+            </div>
+            <div class="field">
+              <button type="submit" class="btn btn-primary btn-block">+ Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Sagle study reminders</h2>
+          <span class="count" id="studyCount">0</span>
+        </div>
+        <div class="list" id="studyList"></div>
+      </div>
+    </section>
+
+    <!-- EXAM REMINDERS -->
+    <section class="view" id="view-exam">
+      <div class="section">
+        <div class="card">
+          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">Naveen exam reminder</h2>
+          <form id="examForm" class="form-grid">
+            <div class="field field-wide">
+              <label>Exam naav</label>
+              <input type="text" id="examName" placeholder="e.g. Chemistry Mid-term" required>
+            </div>
+            <div class="field">
+              <label>Date</label>
+              <input type="date" id="examDate" required>
+            </div>
+            <div class="field">
+              <label>Time</label>
+              <input type="time" id="examTime" value="09:00">
+            </div>
+            <div class="field field-wide">
+              <label>Notes (optional)</label>
+              <input type="text" id="examNotes" placeholder="Syllabus, room number, etc.">
+            </div>
+            <div class="field">
+              <button type="submit" class="btn btn-primary btn-block">+ Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Sagle exams</h2>
+          <span class="count" id="examCount">0</span>
+        </div>
+        <div class="list" id="examList"></div>
+      </div>
+    </section>
+
+    <!-- BREAK REMINDERS -->
+    <section class="view" id="view-break">
+      <div class="section">
+        <div class="card">
+          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">Naveen break reminder</h2>
+          <form id="breakForm" class="form-grid">
+            <div class="field field-wide">
+              <label>Break sathi label</label>
+              <input type="text" id="breakLabel" placeholder="e.g. Chaha break, Walk, Eye rest">
+            </div>
+            <div class="field">
+              <label>Study session (min)</label>
+              <input type="number" id="breakStudyMin" value="50" min="5" max="180">
+            </div>
+            <div class="field">
+              <label>Break lambhi (min)</label>
+              <input type="number" id="breakLenMin" value="10" min="1" max="60">
+            </div>
+            <div class="field">
+              <button type="submit" class="btn btn-primary btn-block">+ Add</button>
+            </div>
+          </form>
+          <p class="field-hint" style="margin-top:12px;">Ha automatic cycle chalu rahil: study session sampla ki break reminder yeil, jopariant tumhi to band karat nahi.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Break cycles</h2>
+          <span class="count" id="breakCount">0</span>
+        </div>
+        <div class="list" id="breakList"></div>
+      </div>
+    </section>
+
+    <!-- TIMETABLE -->
+    <section class="view" id="view-timetable">
+      <div class="section">
+        <div class="card">
+          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">Timetable madhe subject add kara</h2>
+          <form id="timetableForm" class="form-grid">
+            <div class="field">
+              <label>Day</label>
+              <select id="ttDay">
+                <option value="0">Monday</option>
+                <option value="1">Tuesday</option>
+                <option value="2">Wednesday</option>
+                <option value="3">Thursday</option>
+                <option value="4">Friday</option>
+                <option value="5">Saturday</option>
+                <option value="6">Sunday</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Start time</label>
+              <input type="time" id="ttStart" value="09:00" required>
+            </div>
+            <div class="field">
+              <label>End time</label>
+              <input type="time" id="ttEnd" value="10:00" required>
+            </div>
+            <div class="field field-wide">
+              <label>Subject naav</label>
+              <input type="text" id="ttSubject" placeholder="e.g. Biology" required>
+            </div>
+            <div class="field">
+              <button type="submit" class="btn btn-primary btn-block">+ Add slot</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Weekly subject-wise timetable</h2>
+        </div>
+        <div class="timetable-wrap">
+          <table class="timetable" id="timetableGrid"></table>
+        </div>
+        <div class="subject-legend" id="subjectLegend"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Confirm delete modal -->
+<div class="modal-backdrop" id="confirmModal">
+  <div class="modal">
+    <h3>Kaadhun taku ka?</h3>
+    <p style="color:var(--text-muted); font-size:13.5px; margin:0;">Hi entry परत yeणार nahi.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelDelete">Nako</button>
+      <button class="btn btn-danger-ghost" id="confirmDelete">Kadha</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="script.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
