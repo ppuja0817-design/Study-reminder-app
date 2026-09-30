@@ -107,7 +107,8 @@ class StudyLog(db.Model):
     duration = db.Column(db.Integer)  # minutes
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
-
+with app.app_context():
+    db.create_all()
 # ---------------- USER ROUTES ----------------
 
 @app.route('/api/register', methods=['POST'])
@@ -398,8 +399,7 @@ def serve_static(filename):
 # ---------------- MAIN ----------------
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
+   
     
     import os
     port = int(os.environ.get('PORT', 5000))
