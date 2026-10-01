@@ -1,8 +1,8 @@
 /* ========================================================
    Study Desk — app.js
    Dashboard logic: reminders CRUD, timetable, notifications.
-   Ata sagla data BACKEND (Flask API) varun yeto/save hoto —
-   localStorage vaparat nahi (login session sodun).
+   All data now comes from / is saved to the BACKEND (Flask API) —
+   localStorage is not used (except for the login session).
    Depends on script.js being loaded first (API_URL, getSession,
    getCurrentUser, clearSession, pad2, formatDateNice,
    formatTimeNice, daysUntil).
@@ -289,7 +289,7 @@
       document.getElementById('studyRepeat').value = 'once';
       await refreshAndRender();
     }catch(err){
-      toast('Chuk zali', 'Reminder add karta aala nahi.', 'warn');
+      toast('Error', "Couldn't add the reminder.", 'warn');
     }
   });
 
@@ -298,12 +298,12 @@
     const items = [...data.studyReminders].sort((a,b) => (a.date+a.time).localeCompare(b.date+b.time));
     document.getElementById('studyCount').textContent = items.length;
     if (!items.length){
-      list.innerHTML = `<div class="empty">Ajun kahi study reminder nahi. Var form vaparun ek add kara.</div>`;
+      list.innerHTML = `<div class="empty">No study reminders yet. Add one using the form above.</div>`;
       return;
     }
     list.innerHTML = items.map(it => {
       const c = colorFor(it.subject);
-      const repLabel = it.repeat === 'daily' ? 'Roj' : it.repeat === 'weekly' ? 'Aathvadyatun ekda' : 'Ekdach';
+      const repLabel = it.repeat === 'daily' ? 'Daily' : it.repeat === 'weekly' ? 'Weekly' : 'Once';
       return `
         <div class="item">
           <div class="item-swatch" style="background:${c.dot}"></div>
@@ -327,7 +327,7 @@
           try{
             await apiDelete(`/api/reminders/${id}`);
             await refreshAndRender();
-          }catch(err){ toast('Chuk zali', 'Delete karta aala nahi.', 'warn'); }
+          }catch(err){ toast('Error', "Couldn't delete.", 'warn'); }
         });
       });
     });
@@ -358,17 +358,17 @@
       document.getElementById('examTime').value = '09:00';
       await refreshAndRender();
     }catch(err){
-      toast('Chuk zali', 'Exam reminder add karta aala nahi.', 'warn');
+      toast('Error', "Couldn't add the exam reminder.", 'warn');
     }
   });
 
   function examBadge(it){
     const d = daysUntil(it.date);
-    if (d < 0) return { text: 'Zali', cls: '' };
-    if (d === 0) return { text: 'Aaj!', cls: 'badge-urgent' };
-    if (d <= 3) return { text: d + ' din baaki', cls: 'badge-urgent' };
-    if (d <= 7) return { text: d + ' din baaki', cls: 'badge-soon' };
-    return { text: d + ' din baaki', cls: 'badge-ok' };
+    if (d < 0) return { text: 'Past', cls: '' };
+    if (d === 0) return { text: 'Today!', cls: 'badge-urgent' };
+    if (d <= 3) return { text: d + ' days left', cls: 'badge-urgent' };
+    if (d <= 7) return { text: d + ' days left', cls: 'badge-soon' };
+    return { text: d + ' days left', cls: 'badge-ok' };
   }
 
   function renderExamList(){
@@ -379,7 +379,7 @@
     document.getElementById('examCount').textContent = items.length;
 
     if (!items.length){
-      list.innerHTML = `<div class="empty">Ajun kahi exam reminder nahi. Var form vaparun ek add kara.</div>`;
+      list.innerHTML = `<div class="empty">No exam reminders yet. Add one using the form above.</div>`;
       return;
     }
 
@@ -411,7 +411,7 @@
           try{
             await apiDelete(`/api/reminders/${id}`);
             await refreshAndRender();
-          }catch(err){ toast('Chuk zali', 'Delete karta aala nahi.', 'warn'); }
+          }catch(err){ toast('Error', "Couldn't delete.", 'warn'); }
         });
       });
     });
@@ -434,7 +434,7 @@
       this.reset();
       await refreshAndRender();
     }catch(err){
-      toast('Chuk zali', 'Break add karta aala nahi.', 'warn');
+      toast('Error', "Couldn't add the break.", 'warn');
     }
   });
 
@@ -444,7 +444,7 @@
     document.getElementById('breakCount').textContent = items.length;
 
     if (!items.length){
-      list.innerHTML = `<div class="empty">Ajun kahi break reminder nahi. Var form vaparun ek add kara.</div>`;
+      list.innerHTML = `<div class="empty">No break reminders yet. Add one using the form above.</div>`;
       return;
     }
 
@@ -457,8 +457,8 @@
           <div class="item-body">
             <div class="item-title">${escapeHtml(it.label)}</div>
             <div class="item-meta">
-              <span>${isStudy ? '📖 Study chalu aahe' : '☕ Break chalu aahe'}</span>
-              <span>⏳ ${remainingMin} min baaki</span>
+              <span>${isStudy ? '📖 Studying now' : '☕ On a break'}</span>
+              <span>⏳ ${remainingMin} min left</span>
               <span>🔁 ${it.studyMin}min study / ${it.breakMin}min break</span>
             </div>
           </div>
@@ -475,7 +475,7 @@
           try{
             await apiDelete(`/api/breaks/${id}`);
             await refreshAndRender();
-          }catch(err){ toast('Chuk zali', 'Delete karta aala nahi.', 'warn'); }
+          }catch(err){ toast('Error', "Couldn't delete.", 'warn'); }
         });
       });
     });
@@ -492,7 +492,7 @@
     const subject = document.getElementById('ttSubject').value.trim();
     if (!subject || !start || !end) return;
     if (end <= start){
-      toast('Chuk zali', 'End time, start time nantar asayla have.', 'warn');
+      toast('Error', 'End time must be after start time.', 'warn');
       return;
     }
 
@@ -503,7 +503,7 @@
       this.reset();
       await refreshAndRender();
     }catch(err){
-      toast('Chuk zali', 'Timetable slot add karta aala nahi.', 'warn');
+      toast('Error', "Couldn't add the timetable slot.", 'warn');
     }
   });
 
@@ -551,7 +551,7 @@
           try{
             await apiDelete(`/api/timetable/${id}`);
             await refreshAndRender();
-          }catch(err){ toast('Chuk zali', 'Delete karta aala nahi.', 'warn'); }
+          }catch(err){ toast('Error', "Couldn't delete.", 'warn'); }
         });
       });
     });
@@ -592,7 +592,7 @@
 
     if (!todayStudies.length){
       todayCount.textContent = '0';
-      todayList.innerHTML = `<div class="empty">Aaj kontahi study reminder nahi.</div>`;
+      todayList.innerHTML = `<div class="empty">No study reminders today.</div>`;
     } else {
       todayCount.textContent = todayStudies.length;
       todayList.innerHTML = todayStudies.map(it => {
@@ -620,7 +620,7 @@
       .slice(0,5);
 
     if (!upcomingExams.length){
-      overviewExamList.innerHTML = `<div class="empty">Javal kontahi exam nahi.</div>`;
+      overviewExamList.innerHTML = `<div class="empty">No upcoming exams.</div>`;
     } else {
       overviewExamList.innerHTML = upcomingExams.map(it => {
         const badge = examBadge(it);
@@ -699,11 +699,11 @@
       if (Date.now() >= br.phaseEndAt) {
         let newPhase, newEndAt;
         if (br.phase === 'study') {
-          showNotification('☕ Break Time', br.label + ' — break ghenyachi vel zali!');
+          showNotification('☕ Break Time', br.label + ' — time for a break!');
           newPhase = 'break';
           newEndAt = Date.now() + br.breakMin * 60000;
         } else {
-          showNotification('📖 Study Time', br.label + ' — parat study suru kara!');
+          showNotification('📖 Study Time', br.label + ' — back to studying!');
           newPhase = 'study';
           newEndAt = Date.now() + br.studyMin * 60000;
         }
@@ -715,12 +715,12 @@
       }
     }
 
-    // ---- TIMETABLE नुसार आपोआप class reminder ----
+    // ---- Automatic class reminder based on the timetable ----
     const ttDayIndex = (now.getDay() + 6) % 7; // Monday=0 ... Sunday=6
     for (const slot of data.timetable) {
       if (Number(slot.day) === ttDayIndex && slot.start === currentTime) {
         if (slot.lastNotifiedDate !== today) {
-          showNotification('📘 Class Time', slot.subject + ' suru hot aahe (' + formatTimeNice(slot.start) + ')');
+          showNotification('📘 Class Time', slot.subject + ' is starting (' + formatTimeNice(slot.start) + ')');
           slot.lastNotifiedDate = today;
           try{ await apiPut(`/api/timetable/${slot.id}`, { last_notified_date: today }); }catch(e){}
         }

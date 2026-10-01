@@ -193,16 +193,17 @@ function showNotification(title, message) {
 /* ---------- REMINDER CHECKER (prevents repeat notifications) ---------- */
 
 /**
- * Pratyek reminder array (studyReminders / examReminders / breakReminders)
- * madhle items check karto. Jya reminder chi due date+time nighun geli
- * AANI to ajun "notified" mhanun mark zala nahiye, tyachach notification
- * dakhavto — ekdaach. Notification dakhavल्यavar reminder.notified = true
- * kartो ani data save kartो, jenekarun to punha kadhihi trigger hoणar nahi.
+ * Checks each item inside every reminder array (studyReminders /
+ * examReminders / breakReminders). For any reminder whose due
+ * date+time has passed AND which is not yet marked "notified",
+ * it shows the notification exactly once. After showing the
+ * notification it sets reminder.notified = true and saves the
+ * data, so it never fires again.
  *
- * Pratyek reminder object madhe he fields asave lagतात:
+ * Each reminder object should have these fields:
  *   { id, title, date: 'YYYY-MM-DD', time: 'HH:MM', notified: false, ... }
  *
- * index.html madhun asa call kara (ekda page load zाल्यavar):
+ * Call it from index.html like this (once the page has loaded):
  *   setInterval(() => checkAndNotifyReminders(getCurrentUser().id), 30000);
  */
 function checkAndNotifyReminders(userId){
@@ -218,7 +219,7 @@ function checkAndNotifyReminders(userId){
     const list = data[listName] || [];
 
     list.forEach(function(reminder){
-      if (reminder.notified) return;          // aadhich notify zala aahe
+      if (reminder.notified) return;          // already notified
       if (!reminder.date) return;
 
       const dueDateTime = new Date(
@@ -235,13 +236,13 @@ function checkAndNotifyReminders(userId){
           (reminder.time ? ' ' + formatTimeNice(reminder.time) : '')
         );
 
-        reminder.notified = true;             // ata flag lava
+        reminder.notified = true;             // set the flag now
         changed = true;
       }
     });
   });
 
   if (changed){
-    saveData(userId, data);                   // permanently save kara
+    saveData(userId, data);                   // save permanently
   }
 }

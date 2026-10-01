@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,14 +21,14 @@
     </div>
 
     <div class="auth-visual-mid">
-      <h1 class="headline">Tumcha swatah'cha<br><em>abhyas cha kopra</em>.</h1>
-      <p>Free account banva ani study reminder, exam reminder, break reminder ani subject-wise timetable set kara — 1 minute madhe.</p>
+      <h1 class="headline">Your own<br><em>corner for studying</em>.</h1>
+      <p>Create a free account and set up study reminders, exam reminders, break reminders and a subject-wise timetable — in 1 minute.</p>
     </div>
 
     <div class="desk-schedule">
-      <div class="row active"><span class="dot"></span> Step 1 — Naav ani email</div>
-      <div class="row"><span class="dot"></span> Step 2 — Password set kara</div>
-      <div class="row"><span class="dot"></span> Step 3 — Dashboard open hoto</div>
+      <div class="row active"><span class="dot"></span> Step 1 — Name and email</div>
+      <div class="row"><span class="dot"></span> Step 2 — Set a password</div>
+      <div class="row"><span class="dot"></span> Step 3 — Dashboard opens</div>
     </div>
   </div>
 
@@ -39,40 +39,40 @@
         <span class="brand-mark">S</span> Study Desk
       </div>
 
-      <h1>Naveen account banva</h1>
-      <p class="sub">Konihi register karu shakto — agdi mofat.</p>
+      <h1>Create a new account</h1>
+      <p class="sub">Anyone can register — completely free.</p>
 
       <div class="alert" id="formAlert"></div>
 
       <form id="registerForm" novalidate>
         <div class="field" id="nameField">
           <label for="name">Full name</label>
-          <input type="text" id="name" placeholder="Tumcha naav">
-          <div class="field-error">Naav टाका.</div>
+          <input type="text" id="name" placeholder="Your name">
+          <div class="field-error">Enter your name.</div>
         </div>
 
         <div class="field" id="emailField">
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="tumhi@example.com" autocomplete="username">
-          <div class="field-error">Valid email टाका.</div>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="username">
+          <div class="field-error">Enter a valid email.</div>
         </div>
 
         <div class="field" id="passwordField">
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Kimaan 6 characters" autocomplete="new-password">
-          <div class="field-error">Password kimaan 6 characters have.</div>
+          <input type="password" id="password" placeholder="At least 6 characters" autocomplete="new-password">
+          <div class="field-error">Password must be at least 6 characters.</div>
         </div>
 
         <div class="field" id="confirmField">
           <label for="confirm">Confirm password</label>
-          <input type="password" id="confirm" placeholder="Password परत टाका" autocomplete="new-password">
-          <div class="field-error">Password jullat nahi.</div>
+          <input type="password" id="confirm" placeholder="Re-enter password" autocomplete="new-password">
+          <div class="field-error">Passwords do not match.</div>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="margin-top:6px;">Account banva</button>
+        <button type="submit" class="btn btn-primary" style="margin-top:6px;">Create account</button>
       </form>
 
-      <p class="auth-switch">Aadhich account aahe? <a href="login.html">Login kara</a></p>
+      <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
     </div>
   </div>
 
@@ -110,7 +110,7 @@
       await registerUser(name, email, password);
       window.location.href = "index.html";
     } catch (err) {
-      alertBox.textContent = err.message.includes('already') ? "Ha email aadhich register zala aahe. Login kara." : "Kahi chuk zali, punha try kara.";
+      alertBox.textContent = err.message.includes('already') ? "This email is already registered. Please log in." : "Something went wrong, please try again.";
       alertBox.classList.add('show');
     }
   });

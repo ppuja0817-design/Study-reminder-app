@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +53,7 @@
     <div class="topbar">
       <div>
         <button class="btn btn-ghost btn-sm hamburger" id="hamburgerBtn">☰ Menu</button>
-        <h1 id="pageTitle">Namaste, <span id="greetName">Student</span> 👋</h1>
+        <h1 id="pageTitle">Hello, <span id="greetName">Student</span> 👋</h1>
         <div class="date-line" id="todayLine">—</div>
       </div>
     </div>
@@ -81,7 +81,7 @@
 
       <div class="section">
         <div class="section-head">
-          <h2>Aaj che reminders</h2>
+          <h2>Today's reminders</h2>
           <span class="count" id="todayCount">0</span>
         </div>
         <div class="list" id="todayList"></div>
@@ -89,7 +89,7 @@
 
       <div class="section">
         <div class="section-head">
-          <h2>Jawal ali exam</h2>
+          <h2>Upcoming exams</h2>
         </div>
         <div class="list" id="overviewExamList"></div>
       </div>
@@ -99,7 +99,7 @@
     <section class="view" id="view-study">
       <div class="section">
         <div class="card">
-          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">Naveen study reminder</h2>
+          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">New study reminder</h2>
           <form id="studyForm" class="form-grid">
             <div class="field field-wide">
               <label>Subject / Topic</label>
@@ -116,9 +116,9 @@
             <div class="field">
               <label>Repeat</label>
               <select id="studyRepeat">
-                <option value="once">Ekdach</option>
-                <option value="daily">Roj</option>
-                <option value="weekly">Aathvadyatun ekda</option>
+                <option value="once">Once</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
               </select>
             </div>
             <div class="field">
@@ -130,7 +130,7 @@
 
       <div class="section">
         <div class="section-head">
-          <h2>Sagle study reminders</h2>
+          <h2>All study reminders</h2>
           <span class="count" id="studyCount">0</span>
         </div>
         <div class="list" id="studyList"></div>
@@ -141,10 +141,10 @@
     <section class="view" id="view-exam">
       <div class="section">
         <div class="card">
-          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">Naveen exam reminder</h2>
+          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">New exam reminder</h2>
           <form id="examForm" class="form-grid">
             <div class="field field-wide">
-              <label>Exam naav</label>
+              <label>Exam name</label>
               <input type="text" id="examName" placeholder="e.g. Chemistry Mid-term" required>
             </div>
             <div class="field">
@@ -168,7 +168,7 @@
 
       <div class="section">
         <div class="section-head">
-          <h2>Sagle exams</h2>
+          <h2>All exams</h2>
           <span class="count" id="examCount">0</span>
         </div>
         <div class="list" id="examList"></div>
@@ -179,25 +179,25 @@
     <section class="view" id="view-break">
       <div class="section">
         <div class="card">
-          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">Naveen break reminder</h2>
+          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">New break reminder</h2>
           <form id="breakForm" class="form-grid">
             <div class="field field-wide">
-              <label>Break sathi label</label>
-              <input type="text" id="breakLabel" placeholder="e.g. Chaha break, Walk, Eye rest">
+              <label>Label for the break</label>
+              <input type="text" id="breakLabel" placeholder="e.g. Tea break, Walk, Eye rest">
             </div>
             <div class="field">
               <label>Study session (min)</label>
               <input type="number" id="breakStudyMin" value="50" min="5" max="180">
             </div>
             <div class="field">
-              <label>Break lambhi (min)</label>
+              <label>Break length (min)</label>
               <input type="number" id="breakLenMin" value="10" min="1" max="60">
             </div>
             <div class="field">
               <button type="submit" class="btn btn-primary btn-block">+ Add</button>
             </div>
           </form>
-          <p class="field-hint" style="margin-top:12px;">Ha automatic cycle chalu rahil: study session sampla ki break reminder yeil, jopariant tumhi to band karat nahi.</p>
+          <p class="field-hint" style="margin-top:12px;">This automatic cycle will keep running: once the study session ends, a break reminder will appear, until you stop it.</p>
         </div>
       </div>
 
@@ -214,7 +214,7 @@
     <section class="view" id="view-timetable">
       <div class="section">
         <div class="card">
-          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">Timetable madhe subject add kara</h2>
+          <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 14px;">Add a subject to the timetable</h2>
           <form id="timetableForm" class="form-grid">
             <div class="field">
               <label>Day</label>
@@ -237,7 +237,7 @@
               <input type="time" id="ttEnd" value="10:00" required>
             </div>
             <div class="field field-wide">
-              <label>Subject naav</label>
+              <label>Subject name</label>
               <input type="text" id="ttSubject" placeholder="e.g. Biology" required>
             </div>
             <div class="field">
@@ -264,11 +264,11 @@
 <!-- Confirm delete modal -->
 <div class="modal-backdrop" id="confirmModal">
   <div class="modal">
-    <h3>Kaadhun taku ka?</h3>
-    <p style="color:var(--text-muted); font-size:13.5px; margin:0;">Hi entry परत yeणार nahi.</p>
+    <h3>Remove this?</h3>
+    <p style="color:var(--text-muted); font-size:13.5px; margin:0;">This entry cannot be recovered.</p>
     <div class="modal-actions">
-      <button class="btn btn-ghost" id="cancelDelete">Nako</button>
-      <button class="btn btn-danger-ghost" id="confirmDelete">Kadha</button>
+      <button class="btn btn-ghost" id="cancelDelete">Cancel</button>
+      <button class="btn btn-danger-ghost" id="confirmDelete">Delete</button>
     </div>
   </div>
 </div>
